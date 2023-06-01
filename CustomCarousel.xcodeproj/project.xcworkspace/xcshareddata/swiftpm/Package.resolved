@@ -1,0 +1,23 @@
+{
+  "pins" : [
+    {
+      "identity" : "snapkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SnapKit/SnapKit.git",
+      "state" : {
+        "revision" : "f222cbdf325885926566172f6f5f06af95473158",
+        "version" : "5.6.0"
+      }
+    },
+    {
+      "identity" : "swiftextension",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/svyat96/SwiftExtension.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "69d6d1a479ce85591dac8c04efcbd289f12433d2"
+      }
+    }
+  ],
+  "version" : 2
+}
