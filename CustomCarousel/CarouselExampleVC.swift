@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  CarouselExampleVC.swift
 //  CustomCarousel
 //
 //  Created by Ирина Кольчугина on 01.06.2023.
@@ -7,13 +7,10 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-
+final class CarouselExampleVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        view.backgroundColor = .red
     }
-
-
 }
 
