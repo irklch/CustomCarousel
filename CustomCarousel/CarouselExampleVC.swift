@@ -9,7 +9,9 @@ import UIKit
 import SnapKit
 
 final class CarouselExampleVC: UIViewController {
-    private lazy var carousel = CustomCarouselView(views: Self.getViews())
+    private lazy var carousel = CustomCarouselView(
+        views: Self.getViews(),
+        cellSpacing: 16.0)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +24,8 @@ final class CarouselExampleVC: UIViewController {
         for item in 1..<11 {
             let imageView: UIImageView = .init(image: .init(named: item.description))
             imageView.contentMode = .scaleAspectFill
+            imageView.clipsToBounds = true
+            imageView.layer.cornerRadius = 16
             views.append(imageView)
         }
         return views
@@ -31,9 +35,10 @@ final class CarouselExampleVC: UIViewController {
         view.addSubview(carousel)
         carousel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.leading.trailing.equalToSuperview().inset(16)
+            make.leading.trailing.equalToSuperview()
             make.height.equalTo(carousel.snp.width)
         }
     }
+
 }
 

@@ -13,22 +13,31 @@ final class CustomCarouselView: UIView {
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        let collectionView = UICollectionView(
+            frame: .zero,
+            collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(
-            CarouselCell.self,
-            forCellWithReuseIdentifier: CarouselCell.withReuseIdentifier)
+            CustomCarouselCell.self,
+            forCellWithReuseIdentifier: CustomCarouselCell.withReuseIdentifier)
         collectionView.backgroundColor = .clear
         collectionView.showsHorizontalScrollIndicator = false
+        collectionView.isPagingEnabled = true
+        collectionView.decelerationRate = .fast
         return collectionView
     }()
 
     private let views: [UIView]
+    private let cellSpacing: CGFloat
 
-    init(views: [UIView]) {
+    init(
+        views: [UIView],
+        cellSpacing: CGFloat
+    ) {
         self.views = views
+        self.cellSpacing = cellSpacing
         super.init(frame: .zero)
         setupView()
     }
@@ -64,8 +73,8 @@ extension CustomCarouselView: UICollectionViewDataSource {
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: CarouselCell.withReuseIdentifier,
-            for: indexPath) as? CarouselCell,
+            withReuseIdentifier: CustomCarouselCell.withReuseIdentifier,
+            for: indexPath) as? CustomCarouselCell,
               let view = views[safe: indexPath.row] else {
             return .init(frame: .zero)
         }
@@ -79,6 +88,19 @@ extension CustomCarouselView: UICollectionViewDelegateFlowLayout {
         layout collectionViewLayout: UICollectionViewLayout,
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
-           return collectionView.bounds.size
+        return .init(
+            width: collectionView.bounds.size.width.subtraction(cellSpacing),
+            height: collectionView.bounds.size.height)
        }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return cellSpacing
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        .init(
+            top: 0,
+            left: cellSpacing.division(2),
+            bottom: 0,
+            right: cellSpacing.division(2))
+    }
 }
